@@ -1,12 +1,16 @@
 import numpy as np
 
 class KMeans:
-    def __init__(self,k):
+    def __init__(self,k,dist_type):
         self.k = k # number of clusters
+        self.dist_type = dist_type
     
-    def euclidean_distance(x,y):
-        return np.linalg.norm(x-y)
-    
+    def distance(self,x,y):
+        if(self.dist_type == 'Euclidean'):
+            return np.linalg.norm(x-y)
+        elif(self.dist_type == 'Cosine Similarity'):
+            return np.dot(x,y) / (np.linalg.norm(x)*np.linalg.norm(y))
+
     def transform_mnist(self,data):
         pass
 
@@ -28,11 +32,11 @@ class KMeans:
     def computePi(self):
         # for all data points find the closest centroid and update pi
         for i in range(len(self.data)):
-            dist = np.linalg.norm(self.data[i]-self.centroids[0])
+            dist = self.distance(self.data[i]-self.centroids[0])
             closest_centroid_idx = 0
             for centroid_idx in range(1,len(self.centroids)):
-                if(np.linalg.norm(self.data[i]-self.centroids[centroid_idx]) < dist):
-                    dist = np.linalg.norm(self.data[i]-self.centroids[centroid_idx])
+                if(self.distance(self.data[i]-self.centroids[centroid_idx]) < dist):
+                    dist = self.distance(self.data[i]-self.centroids[centroid_idx])
                     closest_centroid_idx = centroid_idx
 
             self.pi[i][closest_centroid_idx] = 1
