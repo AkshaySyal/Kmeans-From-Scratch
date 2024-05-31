@@ -53,13 +53,17 @@ class KMeans:
         # returns cluster lbl allocated to each data point 
         for i in range(self.iters):
             self.computePi()
-            self.computeCentroids()
-
+            if(i != self.iters-1):
+                self.computeCentroids()
+        
+        print(f'Objective function value: {self.kmeansObjective()}')
         return np.argmax(self.pi,axis=1)
 
 
     def kmeansObjective(self):
-        pass 
+        distances_squared = np.sum((self.data[:, np.newaxis] - self.centroids) ** 2, axis=2) # NxK matrix: Dist of each pt with each centroid
+        filtered_distances = distances_squared * self.pi # Element wise multiplication of distances_sq with membership matrix
+        return np.sum(filtered_distances) # Sum of all filtered distances
     
     def evaluteClustering(self):
         pass
