@@ -32,10 +32,10 @@ class KMeans:
     def computePi(self):
         # for all data points find the closest centroid and update pi
         for i in range(len(self.data)):
-            dist = self.distance(self.data[i]-self.centroids[0])
+            dist = self.distance(self.data[i],self.centroids[0])
             closest_centroid_idx = 0
             for centroid_idx in range(1,len(self.centroids)):
-                if(self.distance(self.data[i]-self.centroids[centroid_idx]) < dist):
+                if(self.distance(self.data[i],self.centroids[centroid_idx]) < dist):
                     dist = self.distance(self.data[i]-self.centroids[centroid_idx])
                     closest_centroid_idx = centroid_idx
 
@@ -49,6 +49,14 @@ class KMeans:
         for k in range(self.k):
             self.centroids[k] = self.pi.T[k] @ self.data / sum(self.pi.T[k])
     
+
+    def fit(self):
+        pass
+
+    def predict(self):
+        pass
+
+
     def kmeansObjective(self):
         pass 
     
