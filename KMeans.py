@@ -44,7 +44,11 @@ class KMeans:
 
         for k in range(self.k):
             self.centroids[k] = self.pi.T[k] @ self.data / sum(self.pi.T[k])
-
-
+    
+    def kmeansObjective(self):
+        pass 
+    
+    def evaluteClustering(self):
+        pass
 
 
