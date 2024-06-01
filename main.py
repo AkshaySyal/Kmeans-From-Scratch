@@ -43,7 +43,13 @@ if __name__ == '__main__':
        newsgroups_test = fetch_20newsgroups(subset='test',remove=('headers', 'footers', 'quotes'))
        lbls = newsgroups_test.target
        target_names = newsgroups_test.target_names
+
+       text = np.copy(ng_data)
+       labels = np.copy(lbls)
        
+       kmeans = KMeans(k=40,dist_type='Euclidean',iters=10,num_of_true_lbls=20)
+       kmeans.fit(data=text,true_lbls=labels)
+       kmeans.evaluteClustering()
     
     #transformed_imgs = transform_mnist(imgs_copy)    
     #transformed_imgs = transform_fashion(imgs_copy)
@@ -74,10 +80,16 @@ if __name__ == '__main__':
     #Objective function value: 477813985.0, Purity: 0.1627, Gini Average: 0.8795803409135767
     
     # 20NG k=20
+    # Objective function value: 222293.24200732622, Purity: 0.08470525756771109, Gini Average: 0.9328196371857366
     
     # 20NG k=10
+    # Objective function value: 248522.20982834254, Purity: 0.07514604354753053, Gini Average: 0.9416480514077292
     
     # 20NG k=40
+    # RuntimeWarning: invalid value encountered in divide
+    # self.centroids[k] = self.pi.T[k] @ self.data / sum(self.pi.T[k])
+    # Objective function value: nan, Purity: 0.09240573552841211, Gini Average: 0.930551486020236
+    # probably one of the cluster didn't get any points near it. Hence the corresponding col in membership mat is zero
     
 #     centroids = kmeans.centroids
 #     for i in range(len(centroids)):
