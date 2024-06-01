@@ -21,7 +21,8 @@ class KMeans:
         self.data = data
         self.true_lbls = true_lbls
         # initializing centroids
-        self.centroids = np.random.choice(data, self.k, replace=False)
+        indices = np.random.choice(data.shape[0], self.k, replace=False)
+        self.centroids = data[indices]
     
     def computePi(self):
         # for all data points find the closest centroid and update pi
@@ -33,7 +34,7 @@ class KMeans:
             closest_centroid_idx = 0
             for centroid_idx in range(1,len(self.centroids)):
                 if(self.distance(self.data[i],self.centroids[centroid_idx]) < dist):
-                    dist = self.distance(self.data[i]-self.centroids[centroid_idx])
+                    dist = self.distance(self.data[i],self.centroids[centroid_idx])
                     closest_centroid_idx = centroid_idx
 
             self.pi[i][closest_centroid_idx] = 1
@@ -69,7 +70,7 @@ class KMeans:
 
         # creating confusion matrix
         algo_det_lbls = self.predict() # array of shape 1xN
-        cm = np.zeros(self.k,self.num_of_true_lbls, dtype=int)
+        cm = np.zeros((self.k,self.num_of_true_lbls), dtype=int)
 
         for i in range(len(algo_det_lbls)):
             algo_det_lbl = algo_det_lbls[i]
@@ -83,7 +84,10 @@ class KMeans:
         Mj = np.sum(cm,axis=1) # number of data points per cluster
         for i in range(len(cm)):
             mij = np.sum(cm[i] ** 2)
-            Gj.append(1-(mij/Mj[i]**2))
+            if(Mj[i] == 0):
+                Gj.append(0)
+            else:
+                Gj.append(1-(mij/Mj[i]**2))
             
         gini_avg = np.sum(Gj*Mj)/len(algo_det_lbls)
         print(f"Gini Average: {gini_avg}")
