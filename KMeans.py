@@ -17,15 +17,6 @@ class KMeans:
         elif(self.dist_type == 'Cosine Similarity'):
             return np.dot(x,y) / (np.linalg.norm(x)*np.linalg.norm(y))
 
-    def transform_mnist(self,data):
-        pass
-
-    def transform_fashion(self,data):
-        pass
-    
-    def transform_news_groups(self,data):
-        pass
-
     def fit(self,data,true_lbls):
         self.data = data
         self.true_lbls = true_lbls
