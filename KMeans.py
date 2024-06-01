@@ -46,15 +46,34 @@ class KMeans:
         for k in range(self.k):
             self.centroids[k] = self.pi.T[k] @ self.data / sum(self.pi.T[k])
     
+    # def predict(self):
+    #     # returns cluster lbl allocated to each data point 
+    #     for i in range(self.iters):
+    #         self.computePi()
+    #         if(i != self.iters-1):
+    #             self.computeCentroids()
+        
+    #     print(f'Objective function value: {self.kmeansObjective()}')
+    #     return np.argmax(self.pi,axis=1)
     def predict(self):
         # returns cluster lbl allocated to each data point 
-        for i in range(self.iters):
+        iters = 0
+        self.computePi()
+        self.computeCentroids()
+        old_objective_value = float('inf')
+        new_objective_value = self.kmeansObjective()
+
+        while iters < self.iters and abs(old_objective_value - new_objective_value) > 1e-6:
             self.computePi()
-            if(i != self.iters-1):
+            if iters != self.iters - 1:
                 self.computeCentroids()
+            
+            old_objective_value = new_objective_value
+            new_objective_value = self.kmeansObjective()
+            iters += 1
         
-        print(f'Objective function value: {self.kmeansObjective()}')
-        return np.argmax(self.pi,axis=1)
+        print(f'Objective function value: {new_objective_value}')
+        return np.argmax(self.pi, axis=1)
 
 
     def kmeansObjective(self):

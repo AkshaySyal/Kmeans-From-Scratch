@@ -36,10 +36,35 @@ if __name__ == '__main__':
     #i=0
     #visualizeImg(img=imgs[i],lbl=lbls[i])
     #visualizeImg(img=d[5],lbl=9,reshaped=True)
-    kmeans = KMeans(k=10,dist_type='Euclidean',iters=2,num_of_true_lbls=10)
+    kmeans = KMeans(k=20,dist_type='Euclidean',iters=50,num_of_true_lbls=10)
     kmeans.fit(data=transformed_imgs,true_lbls=lbls_copy)    
     kmeans.evaluteClustering()
 
+    # MNIST k=10
+    #Objective function value: 1485053.0, Purity: 0.2048, Gini Average: 0.8636386695690841
+    
+    # MNIST k=5
+    #Objective function value: 1500369.0, Purity: 0.189, Gini Average: 0.8555777734123303
+    
+    # MNIST k=20
+    #Objective function value: 1471162.0, Purity: 0.1993, Gini Average: 0.8580059860829399
+    
+    # FASHION k=10
+    
+    # FASHION k=5
+    
+    # FASHION k=20
+    
+    # 20NG k=20
+    
+    # 20NG k=10
+    
+    # 20NG k=40
+    
+#     centroids = kmeans.centroids
+#     for i in range(len(centroids)):
+#            visualizeImg(centroids[i],0,reshaped=True)
+     
     
 
     
