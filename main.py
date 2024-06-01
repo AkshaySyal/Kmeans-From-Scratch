@@ -13,11 +13,26 @@ def transform_fashion(data):
 def transform_news_groups(data):
         pass
 
-if __name__ == '__main__':
-    train_images = idx2numpy.convert_from_file("dataset/train-images.idx3-ubyte")
-    train_images_copy = np.copy(train_images)
-    train_labels = idx2numpy.convert_from_file("dataset/train-labels.idx1-ubyte")
+def visualizeImg(img,lbl):
+        i = 3
+        plt.imshow(img, cmap='viridis', interpolation='nearest')
+        plt.colorbar()  # Show color scale
+        plt.title(f'Image of {lbl}')
+        plt.xlabel('X-axis')
+        plt.ylabel('Y-axis')
+        plt.show()
 
-    test_images = idx2numpy.convert_from_file("dataset/t10k-images.idx3-ubyte")
-    test_images_copy = np.copy(test_images)
-    test_labels = idx2numpy.convert_from_file("dataset/t10k-labels.idx1-ubyte")
+if __name__ == '__main__':
+    imgs = idx2numpy.convert_from_file("Datasets/MNIST/t10k-images-idx3-ubyte")
+    imgs_copy = np.copy(imgs)
+    lbls = idx2numpy.convert_from_file("Datasets/MNIST/t10k-labels-idx1-ubyte")
+    lbls_copy = np.copy(lbls)
+
+    i=5
+    visualizeImg(img=imgs[i],lbl=lbls[i])
+
+    
+
+    
+
+   
