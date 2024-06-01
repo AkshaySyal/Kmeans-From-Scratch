@@ -88,10 +88,19 @@ class KMeans:
         Pj_sum = np.sum(np.max(cm,axis=1))
         print(f"Purity: {Pj_sum/len(algo_det_lbls)}")
 
+        Gj = []
+        Mj = np.sum(cm,axis=1) # number of data points per cluster
+        for i in range(len(cm)):
+            mij = np.sum(cm[i] ** 2)
+            Gj.append(1-(mij/Mj[i]**2))
+            
+        gini_avg = np.sum(Gj*Mj)/len(algo_det_lbls)
+        print(f"Gini Average: {gini_avg}")
+
+
+
+
         
-
-
-        pass
 
 
 

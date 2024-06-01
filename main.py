@@ -21,7 +21,7 @@ if __name__ == '__main__':
 indices = np.argmax(matrix, axis=1)
 indices
 
-values = np.sum(np.max(matrix,axis=1))
+values = np.sum(matrix ,axis=1)
 values
 
 X = np.array([
@@ -58,3 +58,7 @@ len(np.unique(arr))
 mat = np.zeros((5,10),dtype=int)
 mat[0][0] = 90
 mat
+
+A = np.array([1,2,3,4])
+B = np.array([3,3,3,3])
+np.sum(A*B)
