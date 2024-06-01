@@ -1,11 +1,16 @@
 import numpy as np
 
 class KMeans:
-    def __init__(self,k,dist_type,iters):
+    def __init__(self,k,dist_type,iters,num_of_true_lbls):
         self.k = k # number of clusters
         self.dist_type = dist_type
         self.iters = iters
-
+        self.num_of_true_lbls = num_of_true_lbls
+        self.pi = None
+        self.data = None
+        self.centroids = None
+        self.true_lbls = None
+    
     def distance(self,x,y):
         if(self.dist_type == 'Euclidean'):
             return np.linalg.norm(x-y)
@@ -21,9 +26,9 @@ class KMeans:
     def transform_news_groups(self,data):
         pass
 
-    def fit(self,data):
+    def fit(self,data,true_lbls):
         self.data = data
-        
+        self.true_lbls = true_lbls
         # initializing centroids
         self.centroids = np.random.choice(data, self.k, replace=False)
     
@@ -66,6 +71,27 @@ class KMeans:
         return np.sum(filtered_distances) # Sum of all filtered distances
     
     def evaluteClustering(self):
+        # Need to make confusion matrix of algorithm determined cluster indices (row) vs true cluster indices (column)
+        # purity = sum of row wise max / total data points
+        # Gini index for a row (algorithm determined cluster) [Gj] = 1- sum of(mij/Mj)^2 [i from 1 to number of true cluster]
+        # Gini average = Gj * Mj/ total data points
+
+        # creating confusion matrix
+        algo_det_lbls = self.predict() # array of shape 1xN
+        cm = np.zeros(self.k,self.num_of_true_lbls, dtype=int)
+
+        for i in range(len(algo_det_lbls)):
+            algo_det_lbl = algo_det_lbls[i]
+            true_lbl = self.true_lbls[i] 
+            cm[algo_det_lbl][true_lbl] += 1
+
+        Pj_sum = np.sum(np.max(cm,axis=1))
+        print(f"Purity: {Pj_sum/len(algo_det_lbls)}")
+
+        
+
+
         pass
+
 
 

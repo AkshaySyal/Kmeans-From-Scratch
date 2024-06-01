@@ -13,12 +13,16 @@ if __name__ == '__main__':
     [0, 1, 2, 0],
     [0, 1, 0, 0],
     [1, 0, 0, 0],
-    [0, 0, 0, 1]
+    [0, 0, 0, 1],
+    [0,0,4,1]
 ])
 
 # Get the index of the 1 in each row
 indices = np.argmax(matrix, axis=1)
 indices
+
+values = np.sum(np.max(matrix,axis=1))
+values
 
 X = np.array([
     [1, 2],
@@ -47,3 +51,10 @@ objective = np.sum(filtered_distances)
 print(distances_squared)
 print(filtered_distances.shape)
 print(objective)
+
+arr = np.array([1,2,3,4,4,5])
+len(np.unique(arr))
+
+mat = np.zeros((5,10),dtype=int)
+mat[0][0] = 90
+mat
